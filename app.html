@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html {{ HTML_ATTRS }}>
+<head>
+    {{ HEAD }}
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+</head>
+<body {{ BODY_ATTRS }}>
+<script>
+    function rem() {
+        var w = Math.min(document.documentElement.getBoundingClientRect().width, 500);
+        document.getElementsByTagName('html')[0].style.fontSize = w * 100 / 750 + 'px';
+    }
+    rem();
+    window.onresize = function(){rem();};
+</script>
+{{ APP }}
+</body>
+</html>

@@ -1,0 +1,36 @@
+@import 'normalize';
+@import 'mixin';
+
+html, body {
+    background: #fff;
+}
+body {
+    color: #333;
+}
+html * {
+    box-sizing: border-box
+}
+body, html {
+    height: 100%;
+    min-height: 100%;
+}
+.flex {
+    display: flex;
+}
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.yen {
+    font-family: arial, Helvetica, sans-serif
+}
+input[type='date'] {
+    -webkit-appearance: none;
+}
+select {
+    border: none;
+}
+.bb{
+    @include border(bottom)
+}
