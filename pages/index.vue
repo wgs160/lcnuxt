@@ -1,49 +1,55 @@
 <template>
-    <div class="container">
-        <el-row :gutter="20">
-            <el-col :span="20">
-                <div class="cell" v-for="(cell, index) in data.topics">
+    <div class="cf">
+        <sidebar>
+            <panel>
+                <span slot="header">标题</span>
+                <span slot="inner">广告</span>
+            </panel>
+        </sidebar>
+        <div class="left-content">
+            <panel  innerClass="no-padding">
+                <span slot="header">标签</span>
+                <div slot="inner" class="cell" v-for="(cell, index) in data.topics">
                     <a class="user_avatar" href="">
                         <img :src="cell.author.avatar_url" :title="cell.author.loginname">
                     </a>
                     <span class="reply_count">
-                        <span class="count_of_replies" title="回复数">{{cell.reply_count}}
-                        </span>
+                        <span class="count_of_replies" title="回复数">{{cell.reply_count}}</span>
                         <span class="count_seperator">/</span>
-                        <span class="count_of_visits" title="点击数">{{cell.visit_count}}
-                        </span>
+                        <span class="count_of_visits" title="点击数">{{cell.visit_count}}</span>
                     </span>
-                    <span class="last-reply">
-                        {{lastReply(cell.last_reply_at)}}
-                    </span>
+                    <el-tag v-if="cell.top" class='type' type="success">置顶</el-tag>
+                    <el-tag v-if="!cell.top && cell.good" class='type' type="success">精华</el-tag>
+                    <el-tag v-if="!cell.top && !cell.good && cell.tab === 'ask'" class='type' type="gray">问答</el-tag>
+                    <el-tag v-if="!cell.top && !cell.good && cell.tab === 'share'" class='type' type="gray">分享</el-tag>
+                    <span class="last-reply">{{lastReply(cell.last_reply_at)}}</span>
                     <div class="title">
-                        <a  href="">
-                            {{cell.title}}
-                        </a>
+                        <nuxt-link :to="`/topic/${cell.id}`"> {{cell.title}}</nuxt-link>
                     </div>
                 </div>
-            </el-col>
-            <el-col :span="4">
-            </el-col>
-        </el-row>
+            </panel>
+        </div>
     </div>
 </template>
 
 <script>
     import moment from 'moment'
+    import sidebar from '~components/sidebar.vue'
+    import panel from '~components/panel.vue'
 
     export default {
         async fetch ({store, error}) {
             await store.dispatch('cnode/topics', {error})
         },
+        layout: 'cnode',
         data() {
             return {
-                activeIndex: '1',
+                activeIndex: '1'
             };
         },
         computed: {
             data () {
-                return this.$store.state.cnode.data
+                return this.$store.state.cnode.topics
             }
         },
         methods: {
@@ -53,6 +59,10 @@
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
             }
+        },
+        components: {
+            sidebar,
+            panel
         }
     }
 </script>
@@ -60,10 +70,6 @@
 <style lang="scss" scoped rel="stylesheet/scss">
     @import '~assets/css/mixin';
 
-    .container {
-        padding: 0 20px;
-        margin: 15px auto 0;
-    }
     .cell{
         padding: 10px;
         overflow: hidden;
@@ -90,7 +96,8 @@
         text-align: center;
     }
     .title{
-        @include noBreak()
+        @include noBreak();
+        font-size: 16px;
 
         a:hover {
             text-decoration: underline;
@@ -98,5 +105,11 @@
     }
     .last-reply{
         float: right;
+        padding: 0 10px;
+    }
+    .type{
+        float: left;
+        margin-top: 3px;
+        margin-right: 10px;
     }
 </style>

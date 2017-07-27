@@ -4,24 +4,17 @@ import axios from 'axios'
 var router = Router()
 
 /* GET users listing. */
-router.get('/topics',function (req, res, next) {
-    axios.get('https://cnodejs.org/api/v1/topics')
+router.all('*',function (req, res, next) {
+    var api = req.params[0] || ''
+    const url = `https://cnodejs.org/api/v1/${api}`
+    axios.get(url)
         .then(function (response) {
+            console.log(url);
             res.json(response.data)
         })
         .catch(function (error) {
-            console.log(error);
+            res.sendStatus(404)
         });
-})
-
-/* GET user by ID. */
-router.get('/topics/:id', function (req, res, next) {
-  var id = parseInt(req.params.id)
-  if (id >= 0 && id < users.length) {
-    res.json(users[id])
-  } else {
-    res.sendStatus(404)
-  }
 })
 
 export default router

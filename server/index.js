@@ -1,5 +1,7 @@
 import Nuxt from 'nuxt'
 import express from 'express'
+import proxy from 'http-proxy-middleware'
+
 
 import api from './api'
 
@@ -9,8 +11,15 @@ const port = process.env.PORT || 3000
 
 app.set('port', port)
 
+const option = {
+    target: 'https://cnodejs.org',
+    changeOrigin: true,
+    pathRewrite: {'^/api/cnode' : '/api/v1'}
+}
+
+app.use('/api/cnode', proxy(option));
 // Import API Routes
-app.use('/api', api)
+// app.use('/api', api)
 
 // Start nuxt.js
 async function start() {

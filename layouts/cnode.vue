@@ -1,5 +1,11 @@
 <template>
-    <nuxt/>
+    <div id="app">
+        <my-nav/>
+        <div id="container">
+            <nuxt/>
+        </div>
+        <my-footer/>
+    </div>
 </template>
 
 <script>
@@ -15,5 +21,10 @@
 </script>
 
 <style scoped>
-
+    #container {
+        margin: 20px auto;
+        width: 90%;
+        max-width: 1400px;
+        min-width: 960px;
+    }
 </style>

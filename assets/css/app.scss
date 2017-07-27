@@ -1,17 +1,14 @@
 @import 'normalize';
 @import 'mixin';
 
-html, body {
-    background: #fff;
-}
-body {
+html {
     color: #333;
+    background-color: #e8e8e8;
 }
 html * {
     box-sizing: border-box
 }
 body, html {
-    height: 100%;
     min-height: 100%;
 }
 .flex {
@@ -31,6 +28,43 @@ input[type='date'] {
 select {
     border: none;
 }
-.bb{
-    @include border(bottom)
+.left-content{
+    margin-right: 300px;
+    background-color: #ffffff;
+    border-radius: 3px;
+}
+
+.topic_content{
+    margin: 0 10px;
+}
+
+.topic_content h2 {
+    margin: 30px 0 15px;
+    font-size: 26px;
+    font-weight: 700;
+    border-bottom: 1px solid #eee;
+}
+.topic_content p {
+    margin: 1em 0;
+    line-height: 2em;
+    font-size: 15px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.topic_content ul {
+    padding: 0;
+    margin: 0 0 10px 25px;
+
+    li {
+        line-height: 2em;
+    }
+}
+.topic_content blockquote {
+    padding: 0 0 0 15px;
+    margin: 0 0 20px;
+    border-left: 5px solid #eee;
+}
+
+.topic_content a {
+    color: #08c;
 }

@@ -40,5 +40,9 @@ module.exports = {
          }
          }*/
     },
-    plugins: ['~plugins'],
+    plugins: [{
+        src: '~plugins'
+    },{
+        src: '~plugins/front', ssr: false
+    }],
 }
